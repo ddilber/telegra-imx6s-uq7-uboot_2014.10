@@ -1,0 +1,6 @@
+TELEGRAUQ7 BOARD
+M:	Dario Dilber <dario.dilber@telegra-europe.com>
+S:	Maintained
+F:	board/telegrauq7/
+F:	include/configs/telegrauq7.h
+F:	configs/telegrauq7_solo_defconfig

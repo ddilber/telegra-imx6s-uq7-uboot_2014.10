@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 3.3.0, 2015-04-17T14:36:48. -->
+<!-- Written by QtCreator 3.3.0, 2015-05-05T16:35:28. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -68,11 +68,9 @@
     <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/media/disk/ddilber/src/test/uQ7/fsl-community-bsp/build/tmp/work/telegrauq7-poky-linux-gnueabi/u-boot-telegra-imx6s-uq7/v2014.10+gitAUTOINC+2851e47456-r0/git</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
-      <valuelist type="QVariantList" key="GenericProjectManager.GenericMakeStep.BuildTargets">
-       <value type="QString">all</value>
-      </valuelist>
+      <valuelist type="QVariantList" key="GenericProjectManager.GenericMakeStep.BuildTargets"/>
       <value type="bool" key="GenericProjectManager.GenericMakeStep.Clean">false</value>
-      <value type="QString" key="GenericProjectManager.GenericMakeStep.MakeArguments"></value>
+      <value type="QString" key="GenericProjectManager.GenericMakeStep.MakeArguments">-j8 ARCH=arm CROSS_COMPILE=/media/disk/ddilber/src/test/uQ7/fsl-community-bsp/build/tmp/sysroots/x86_64-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-</value>
       <value type="QString" key="GenericProjectManager.GenericMakeStep.MakeCommand"></value>
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Make</value>

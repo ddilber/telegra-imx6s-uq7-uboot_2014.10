@@ -5,3 +5,4 @@
 #
 
 obj-y  := telegrauq7.o
+#obj-y  += video.o

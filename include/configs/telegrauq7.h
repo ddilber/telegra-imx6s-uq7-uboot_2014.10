@@ -19,7 +19,7 @@
 #define CONFIG_DISPLAY_BOARDINFO
 
 #define MACH_TYPE_TELEGRAUQ7	4412
-#define CONFIG_MACH_TYPE		MACH_TYPE_WANDBOARD
+#define CONFIG_MACH_TYPE		MACH_TYPE_TELEGRAUQ7
 
 #define CONFIG_CMDLINE_TAG
 #define CONFIG_SETUP_MEMORY_TAGS
@@ -55,7 +55,7 @@
 
 #define CONFIG_SYS_MEMTEST_START	0x10000000
 #define CONFIG_SYS_MEMTEST_END		(CONFIG_SYS_MEMTEST_START + 256 * SZ_1M)
-#define CONFIG_LOADADDR			0x12000000
+#define CONFIG_LOADADDR			0x10800000
 #define CONFIG_SYS_TEXT_BASE		0x17800000
 
 /* I2C Configs */
@@ -63,6 +63,27 @@
 #define CONFIG_SYS_I2C
 #define CONFIG_SYS_I2C_MXC
 #define CONFIG_SYS_I2C_SPEED		100000
+
+
+/* NAND */
+#define CONFIG_SYS_USE_NAND
+
+#ifdef CONFIG_SYS_USE_NAND
+#define CONFIG_CMD_NAND
+#define CONFIG_CMD_NAND_TRIMFFS
+
+/* NAND stuff */
+#define CONFIG_NAND_MXS
+#define CONFIG_SYS_MAX_NAND_DEVICE	1
+#define CONFIG_SYS_NAND_BASE		0x40000000
+#define CONFIG_SYS_NAND_5_ADDR_CYCLE
+#define CONFIG_SYS_NAND_ONFI_DETECTION
+
+/* DMA stuff, needed for GPMI/MXS NAND support */
+#define CONFIG_APBH_DMA
+#define CONFIG_APBH_DMA_BURST
+#define CONFIG_APBH_DMA_BURST8
+#endif
 
 /* MMC Configuration */
 #define CONFIG_FSL_ESDHC
@@ -92,8 +113,25 @@
 #define CONFIG_PHYLIB
 #define CONFIG_PHY_ATHEROS
 
-/* Framebuffer */
+
+/* Framebuffer and LCD IMX53
+#define CONFIG_PREBOOT
 #define CONFIG_VIDEO
+#define CONFIG_VIDEO_IPUV3
+#define CONFIG_CFB_CONSOLE
+#define CONFIG_VGA_AS_SINGLE_DEVICE
+#define CONFIG_SYS_CONSOLE_IS_IN_ENV
+#define CONFIG_SYS_CONSOLE_OVERWRITE_ROUTINE
+#define CONFIG_VIDEO_BMP_RLE8
+#define CONFIG_SPLASH_SCREEN
+#define CONFIG_BMP_16BPP
+#define CONFIG_VIDEO_LOGO
+#define CONFIG_IPUV3_CLK	200000000
+*/
+/* Framebuffer OLD****WAND*/
+
+#undef CONFIG_VIDEO
+/*
 #define CONFIG_VIDEO_IPUV3
 #define CONFIG_CFB_CONSOLE
 #define CONFIG_VGA_AS_SINGLE_DEVICE
@@ -105,10 +143,15 @@
 #define CONFIG_BMP_16BPP
 #define CONFIG_VIDEO_LOGO
 #define CONFIG_VIDEO_BMP_LOGO
-#define CONFIG_IPUV3_CLK 260000000
+#define CONFIG_IPUV3_CLK 200000000
+*/
+
+
 #define CONFIG_CMD_HDMIDETECT
 #define CONFIG_IMX_HDMI
-#define CONFIG_IMX_VIDEO_SKIP
+/* #define CONFIG_IMX_VIDEO_SKIP */
+
+
 
 #define CONFIG_CMD_FUSE
 #ifdef CONFIG_CMD_FUSE
@@ -157,7 +200,7 @@
 			"setenv bootargs ${bootargs} " \
 				"video=mxcfb${nextcon}:dev=hdmi,1280x720M@60," \
 					"if=RGB24; " \
-			"setenv fbmen fbmem=28M; " \
+            "setenv fbmen fbmem=8M; " \
 			"setexpr nextcon ${nextcon} + 1; " \
 		"else " \
 			"echo - no HDMI monitor;" \
@@ -223,7 +266,7 @@
 			"bootz; " \
 		"fi;\0"
 
-#define CONFIG_BOOTCOMMAND \
+#define CONFIG_BOOTCOMMAND1 \
 	   "mmc dev ${mmcdev}; if mmc rescan; then " \
 		   "if run loadbootscript; then " \
 			   "run bootscript; " \
@@ -234,6 +277,11 @@
 			   "fi; " \
 		   "fi; " \
 	   "else run netboot; fi"
+#define CONFIG_BOOTCOMMAND \
+        "set bootargs 'root=/dev/ram rw panic=1 console=ttymxc0,115200';" \
+        "bootz ${loadaddr} 12c00000 ${fdt_addr}; " \
+        ""
+
 
 /* Miscellaneous configurable options */
 #define CONFIG_SYS_LONGHELP

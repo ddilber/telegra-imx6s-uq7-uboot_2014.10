@@ -107,7 +107,7 @@
 #define CONFIG_FEC_MXC
 #define CONFIG_MII
 #define IMX_FEC_BASE			ENET_BASE_ADDR
-#define CONFIG_FEC_XCV_TYPE		RGMII
+#define CONFIG_FEC_XCV_TYPE		MII100
 #define CONFIG_ETHPRIME			"FEC"
 #define CONFIG_FEC_MXC_PHYADDR		1
 #define CONFIG_PHYLIB
@@ -128,10 +128,10 @@
 #define CONFIG_VIDEO_LOGO
 #define CONFIG_IPUV3_CLK	200000000
 */
-/* Framebuffer OLD****WAND*/
 
-#undef CONFIG_VIDEO
-/*
+
+/* Framebuffer */
+#define CONFIG_VIDEO
 #define CONFIG_VIDEO_IPUV3
 #define CONFIG_CFB_CONSOLE
 #define CONFIG_VGA_AS_SINGLE_DEVICE
@@ -144,13 +144,10 @@
 #define CONFIG_VIDEO_LOGO
 #define CONFIG_VIDEO_BMP_LOGO
 #define CONFIG_IPUV3_CLK 200000000
-*/
-
 
 #define CONFIG_CMD_HDMIDETECT
 #define CONFIG_IMX_HDMI
-/* #define CONFIG_IMX_VIDEO_SKIP */
-
+#define CONFIG_IMX_VIDEO_SKIP
 
 
 #define CONFIG_CMD_FUSE
@@ -159,9 +156,9 @@
 #endif
 
 #if defined(CONFIG_MX6DL) || defined(CONFIG_MX6S)
-#define CONFIG_DEFAULT_FDT_FILE		"imx6dl-wandboard.dtb"
+#define CONFIG_DEFAULT_FDT_FILE		"imx6dl-telegrauq7.dtb"
 #elif defined(CONFIG_MX6Q)
-#define CONFIG_DEFAULT_FDT_FILE		"imx6q-wandboard.dtb"
+#define CONFIG_DEFAULT_FDT_FILE		"imx6q-telegrauq7.dtb"
 #endif
 
 #define CONFIG_EXTRA_ENV_SETTINGS \
@@ -174,7 +171,7 @@
 	"fdt_file=" CONFIG_DEFAULT_FDT_FILE "\0" \
 	"fdt_addr=0x18000000\0" \
 	"boot_fdt=try\0" \
-	"ip_dyn=yes\0" \
+    "ip_dyn=no\0" \
 	"mmcdev=" __stringify(CONFIG_SYS_MMC_ENV_DEV) "\0" \
 	"mmcpart=1\0" \
 	"mmcroot=/dev/mmcblk0p2 rootwait rw\0" \
@@ -241,8 +238,7 @@
 		"else " \
 			"bootz; " \
 		"fi;\0" \
-	"netargs=setenv bootargs console=${console},${baudrate} " \
-		"root=/dev/nfs " \
+    "netargs=setenv bootargs console=${console},${baudrate} root=/dev/nfs " \
 	"ip=dhcp nfsroot=${serverip}:${nfsroot},v3,tcp\0" \
 		"netboot=echo Booting from net ...; " \
 		"run netargs; " \
@@ -276,10 +272,15 @@
 			   "else run netboot; " \
 			   "fi; " \
 		   "fi; " \
-	   "else run netboot; fi"
+       "else run netboot; fi"
+
 #define CONFIG_BOOTCOMMAND \
-        "set bootargs 'root=/dev/ram rw panic=1 console=ttymxc0,115200';" \
-        "bootz ${loadaddr} 12c00000 ${fdt_addr}; " \
+        "setenv bootargs 'root=/dev/ram rw panic=1 console=ttymxc0,115200';" \
+        "setenv ethaddr 00:14:45:77:77:77;" \
+        "setenv ipaddr 172.17.55.77;" \
+        "setenv serverip 172.17.55.103;" \
+        "run netboot;" \
+        /*"bootz ${loadaddr} 12c00000 ${fdt_addr};" */ \
         ""
 
 

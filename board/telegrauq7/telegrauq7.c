@@ -96,23 +96,29 @@ static iomux_v3_cfg_t const usdhc3_pads[] = {
 };
 
 static iomux_v3_cfg_t const enet_pads[] = {
-	MX6_PAD_ENET_MDIO__ENET_MDIO		| MUX_PAD_CTRL(ENET_PAD_CTRL),
-	MX6_PAD_ENET_MDC__ENET_MDC		| MUX_PAD_CTRL(ENET_PAD_CTRL),
-	MX6_PAD_RGMII_TXC__RGMII_TXC	| MUX_PAD_CTRL(ENET_PAD_CTRL),
-	MX6_PAD_RGMII_TD0__RGMII_TD0	| MUX_PAD_CTRL(ENET_PAD_CTRL),
-	MX6_PAD_RGMII_TD1__RGMII_TD1	| MUX_PAD_CTRL(ENET_PAD_CTRL),
-	MX6_PAD_RGMII_TD2__RGMII_TD2	| MUX_PAD_CTRL(ENET_PAD_CTRL),
-	MX6_PAD_RGMII_TD3__RGMII_TD3	| MUX_PAD_CTRL(ENET_PAD_CTRL),
-	MX6_PAD_RGMII_TX_CTL__RGMII_TX_CTL	| MUX_PAD_CTRL(ENET_PAD_CTRL),
-	MX6_PAD_ENET_REF_CLK__ENET_TX_CLK	| MUX_PAD_CTRL(ENET_PAD_CTRL),
-	MX6_PAD_RGMII_RXC__RGMII_RXC	| MUX_PAD_CTRL(ENET_PAD_CTRL),
-	MX6_PAD_RGMII_RD0__RGMII_RD0	| MUX_PAD_CTRL(ENET_PAD_CTRL),
-	MX6_PAD_RGMII_RD1__RGMII_RD1	| MUX_PAD_CTRL(ENET_PAD_CTRL),
-	MX6_PAD_RGMII_RD2__RGMII_RD2	| MUX_PAD_CTRL(ENET_PAD_CTRL),
-	MX6_PAD_RGMII_RD3__RGMII_RD3	| MUX_PAD_CTRL(ENET_PAD_CTRL),
-	MX6_PAD_RGMII_RX_CTL__RGMII_RX_CTL	| MUX_PAD_CTRL(ENET_PAD_CTRL),
-	/* AR8031 PHY Reset */
-	MX6_PAD_EIM_D29__GPIO3_IO29		| MUX_PAD_CTRL(NO_PAD_CTRL),
+    MX6_PAD_KEY_ROW1__ENET_COL 		| MUX_PAD_CTRL(ENET_PAD_CTRL),
+    MX6_PAD_KEY_COL3__ENET_CRS		  | MUX_PAD_CTRL(ENET_PAD_CTRL),
+    MX6_PAD_ENET_MDC__ENET_MDC         | MUX_PAD_CTRL(ENET_PAD_CTRL),
+    MX6_PAD_ENET_MDIO__ENET_MDIO		  | MUX_PAD_CTRL(ENET_PAD_CTRL),
+
+    MX6_PAD_GPIO_18__ENET_RX_CLK		  | MUX_PAD_CTRL(ENET_PAD_CTRL),
+    MX6_PAD_ENET_RXD0__ENET_RX_DATA0	  | MUX_PAD_CTRL(ENET_PAD_CTRL),
+    MX6_PAD_ENET_RXD1__ENET_RX_DATA1	  | MUX_PAD_CTRL(ENET_PAD_CTRL),
+    MX6_PAD_KEY_COL2__ENET_RX_DATA2	  | MUX_PAD_CTRL(ENET_PAD_CTRL),
+    MX6_PAD_KEY_COL0__ENET_RX_DATA3	  | MUX_PAD_CTRL(ENET_PAD_CTRL),
+    MX6_PAD_ENET_CRS_DV__ENET_RX_EN	  | MUX_PAD_CTRL(ENET_PAD_CTRL),
+    MX6_PAD_ENET_RX_ER__ENET_RX_ER	  | MUX_PAD_CTRL(ENET_PAD_CTRL),
+
+    MX6_PAD_ENET_REF_CLK__ENET_TX_CLK  | MUX_PAD_CTRL(ENET_PAD_CTRL),
+
+    MX6_PAD_ENET_TXD0__ENET_TX_DATA0	  | MUX_PAD_CTRL(ENET_PAD_CTRL),
+    MX6_PAD_ENET_TXD1__ENET_TX_DATA1	  | MUX_PAD_CTRL(ENET_PAD_CTRL),
+    MX6_PAD_KEY_ROW2__ENET_TX_DATA2	  | MUX_PAD_CTRL(ENET_PAD_CTRL),
+    MX6_PAD_KEY_ROW0__ENET_TX_DATA3	  | MUX_PAD_CTRL(ENET_PAD_CTRL),
+
+    MX6_PAD_ENET_TX_EN__ENET_TX_EN	  | MUX_PAD_CTRL(ENET_PAD_CTRL),
+    MX6_PAD_GPIO_19__ENET_TX_ER		  | MUX_PAD_CTRL(ENET_PAD_CTRL)
+
 };
 
 static void setup_iomux_uart(void)
@@ -337,8 +343,8 @@ static void enable_uq7_fwadapt_7wvga(struct display_info_t const *dev)
     gpio_direction_output(IMX_GPIO_NR(2, 10), 1);
     gpio_direction_output(IMX_GPIO_NR(2, 11), 1);
 }
-/*
-struct display_info_t const displays1[] = {{
+
+struct display_info_t const displays[] = {{
 	.bus	= -1,
 	.addr	= 0,
 	.pixfmt	= IPU_PIX_FMT_RGB24,
@@ -379,7 +385,7 @@ struct display_info_t const displays1[] = {{
 		.sync           = 0,
 		.vmode          = FB_VMODE_NONINTERLACED
 } } };
-*/
+/*
 struct display_info_t const displays[] = {{
     .bus	= -1,
     .addr	= 0,
@@ -401,7 +407,7 @@ struct display_info_t const displays[] = {{
         .sync           = 0,
         .vmode          = FB_VMODE_NONINTERLACED
 } } };
-
+*/
 size_t display_count = ARRAY_SIZE(displays);
 
 static void setup_display(void)
